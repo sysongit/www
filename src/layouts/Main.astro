@@ -1,0 +1,123 @@
+---
+import "normalize.css";
+
+interface Props {
+  title: string;
+}
+
+const isHome = Astro.url.pathname.length == 1;
+const { title } = Astro.props;
+---
+
+<script lang="ts"></script>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo-pixel">
+        <img
+          src="/ccn_cursive_pixel.png"
+          alt="concombre.net written in a cursive pixel art style"
+          srcset=""
+        />
+      </div>
+    </header>
+    <main>
+      <article>
+        <slot />
+      </article>
+    </main>
+  </body>
+</html>
+<style is:global lang="scss">
+  @import "/src/fonts.css";
+
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --white: #fbfffe;
+    --black: #1b1b1e;
+    --header-height: 24px;
+
+    --accent-color: #9dbf9e;
+  }
+
+  html {
+    font-family: "Mori", sans-serif;
+    background: var(--black);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  body {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    margin: 1em 0em;
+
+    main {
+      position: relative;
+      background: var(--white);
+      border-radius: 16px 16px 0 0;
+      padding: 1em;
+      min-height: calc(100% - var(--header-height));
+      & [lowered] {
+      }
+    }
+
+    header {
+      position: relative;
+      padding: 0.25em;
+      min-height: var(--header-height);
+      border-radius: 5px;
+      color: var(--white);
+      z-index: 2;
+      margin-bottom: 1em;
+
+      .logo-pixel {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          height: 24px;
+          image-rendering: crisp-edges;
+        }
+      }
+    }
+
+    article {
+      max-width: 800px;
+      text-align: justify;
+      margin-inline: auto;
+    }
+  }
+
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+</style>

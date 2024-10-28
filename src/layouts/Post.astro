@@ -1,0 +1,137 @@
+---
+import Main from "../layouts/Main.astro";
+
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<script lang="ts">
+  console.log(props);
+</script>
+
+<Main title={title}>
+  <div class="header raised">
+    <h1 class="raised clicky">{title}</h1>
+    <h2 class="raised clicky">{subtitle}</h2>
+    <button class="like raised"> &nbsp;&nbsp;&nbsp;</button>
+  </div>
+  <div class="post-body">
+    <slot />
+  </div>
+</Main>
+
+<style>
+  .header {
+    --bgcolor: var(--accent-color);
+    --height: 8px;
+
+    padding: 1em;
+    margin: 2em 0;
+  }
+
+  .raised {
+    position: relative;
+    background-color: var(--bgcolor);
+    box-shadow:
+      rgba(230, 230, 235, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    &::after {
+      content: "";
+      background-color: color-mix(in srgb, var(--bgcolor) 80%, black 20%);
+      position: absolute;
+      width: 100%;
+      height: var(--height);
+      bottom: calc(0px - var(--height));
+      left: 0;
+    }
+
+    &.clicky {
+      transition:
+        transform 0.1s linear,
+        box-shadow 0.1s linear;
+
+      &::after {
+        transition: transform 0.1s linear;
+      }
+
+      &:hover {
+        box-shadow: none;
+        transform: translateY(calc(var(--height)));
+
+        &::after {
+          transform: translateY(calc(-0.5 * var(--height))) scaleY(0);
+        }
+      }
+    }
+  }
+
+  button {
+    --bgcolor: var(--white);
+    --height: 4px;
+
+    font-size: large;
+
+    padding: 0.2em 0.5em 0.1em 0.5em;
+    border: none;
+    cursor: pointer;
+
+    transition:
+      transform 0.1s ease-in,
+      box-shadow 0.1s ease-in;
+
+    &::after {
+      transition: transform 0.1s linear;
+    }
+
+    &:active {
+      box-shadow: none;
+      transform: translateY(calc(var(--height)));
+
+      padding: 0.2em 0.5em 0.1em 0.5em;
+
+      &::after {
+        transform: translateY(calc(-0.5 * var(--height))) scaleY(0);
+      }
+    }
+  }
+
+  .like {
+    float: right;
+  }
+  h1 {
+    --bgcolor: var(--white);
+    --height: 4px;
+    color: var(--black);
+    font-size: xx-large;
+
+    margin: 0;
+    margin-bottom: 0.5em;
+
+    padding: 0.2em 0.5em 0.1em 0.5em;
+  }
+
+  h2 {
+    --bgcolor: var(--white);
+    --height: 4px;
+    color: var(--black);
+    font-weight: normal;
+    font-size: large;
+
+    display: inline-block;
+
+    margin: 0;
+
+    padding: 0.2em 0.5em 0.1em 0.5em;
+  }
+
+  .post-body {
+    text-align: justify;
+    font-size: 1.05em;
+    line-height: 1.4em;
+  }
+</style>
