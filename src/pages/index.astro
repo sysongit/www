@@ -1,12 +1,26 @@
 ---
 import Main from "../layouts/Main.astro";
+import Post from "../layouts/Post.astro";
+
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("posts");
+
+// Render each entry content
+const renderedEntries = await Promise.all(
+  entries.map(async (entry) => ({
+    ...entry,
+    Content: (await entry.render()).Content,
+  }))
+);
 ---
 
-<Main title="concombre.net" />
-<!-- <Post title="The beginning" subtitle="of the end">
-  <p>
-    This is the first post ever ! And also the last one you'll reach when
-    scrolling from the beginning !<br />
-    We all gotta start sometime, and end somewhere.
-  </p>
-</Post> -->
+<Main title="concombre.net">
+  {
+    renderedEntries.map((entry) => (
+      <Post title={entry.data.title} subtitle={entry.data.subtitle}>
+        <entry.Content />
+      </Post>
+    ))
+  }
+</Main>

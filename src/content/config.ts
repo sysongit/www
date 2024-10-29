@@ -5,6 +5,8 @@ const postsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
+    // date: z.date(),
+    // lastEdited: z.date(),
   }),
 });
 
@@ -12,7 +14,7 @@ const labCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    subtitle: z.string(),
+    date: z.date(),
   }),
 });
 
