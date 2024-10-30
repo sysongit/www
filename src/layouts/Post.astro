@@ -1,6 +1,4 @@
 ---
-import Main from "../layouts/Main.astro";
-
 interface Props {
   title: string;
   subtitle: string;
@@ -13,16 +11,16 @@ const { title, subtitle } = Astro.props;
   console.log(props);
 </script>
 
-<Main title={title}>
+<div class="content">
   <div class="header raised">
     <h1 class="raised clicky">{title}</h1>
     <h2 class="raised clicky">{subtitle}</h2>
-    <button class="like raised"> &nbsp;&nbsp;&nbsp;</button>
+    <button class="like raised"></button>
   </div>
   <div class="post-body">
     <slot />
   </div>
-</Main>
+</div>
 
 <style>
   .header {
@@ -70,6 +68,10 @@ const { title, subtitle } = Astro.props;
     }
   }
 
+  .content {
+    margin: 1em;
+  }
+
   button {
     --bgcolor: var(--white);
     --height: 4px;
@@ -111,8 +113,9 @@ const { title, subtitle } = Astro.props;
 
     margin: 0;
     margin-bottom: 0.5em;
-
     padding: 0.2em 0.5em 0.1em 0.5em;
+
+    text-transform: lowercase;
   }
 
   h2 {
@@ -125,11 +128,13 @@ const { title, subtitle } = Astro.props;
     display: inline-block;
 
     margin: 0;
-
     padding: 0.2em 0.5em 0.1em 0.5em;
+
+    text-transform: lowercase;
   }
 
   .post-body {
+    padding: 0 1em;
     text-align: justify;
     font-size: 1.05em;
     line-height: 1.4em;
